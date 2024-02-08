@@ -48,11 +48,17 @@ app.get('/city/page/:page?', async (req, res) => {
 
     // Executa a consulta SQL com LIMIT e OFFSET
     const [result] = await connection.execute(`SELECT * FROM city LIMIT ${resultsPerPage} OFFSET ${offset}`);
-
-    const data = result.map((e) => ({
+    
+    const city = result.map((e) => ({
         cityId: e.city_id,
         city: e.city,
     }));
+
+    const data = {
+        page,
+        totalCities: result.length,
+        city
+    };
 
     res.status(200).json(data);
 });
