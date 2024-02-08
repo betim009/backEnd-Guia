@@ -36,6 +36,27 @@ app.get('/city', async (req, res) => {
     res.status(200).json(data);
 });
 
+app.get('/city/page/:page?', async (req, res) => {
+    // Obtém o número da página a partir dos parâmetros da rota
+    const page = req.params.page || 1;
+
+    // Define o número de resultados por página
+    const resultsPerPage = 20;
+
+    // Calcula o deslocamento com base na página atual
+    const offset = (page - 1) * resultsPerPage;
+
+    // Executa a consulta SQL com LIMIT e OFFSET
+    const [result] = await connection.execute(`SELECT * FROM city LIMIT ${resultsPerPage} OFFSET ${offset}`);
+
+    const data = result.map((e) => ({
+        cityId: e.city_id,
+        city: e.city,
+    }));
+
+    res.status(200).json(data);
+});
+
 app.get('/country', async (req, res) => {
     const [result] = await connection.execute('SELECT * FROM country');
     res.json(result);
