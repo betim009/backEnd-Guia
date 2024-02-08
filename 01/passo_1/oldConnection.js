@@ -10,5 +10,7 @@ const connection = mysql.createPool({
     queueLimit: 0
 });
 
+// Testando a connection 
+//console.log(connection);
 
 module.exports = connection;
