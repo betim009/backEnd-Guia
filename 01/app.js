@@ -23,10 +23,15 @@ app.get('/', async (_req, res) => {
 app.get('/city', async (req, res) => {
     const [result] = await connection.execute('SELECT * FROM city');
 
-    const data = result.map((e) => ({
+    const city = result.map((e) => ({
         cityId: e.city_id,
         city: e.city,
     }));
+
+    const data = {
+        totalCities: result.length,
+        city,
+    }
 
     res.status(200).json(data);
 });
