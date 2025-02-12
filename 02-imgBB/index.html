@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form id="userForm" action="http://127.0.0.1:3001/users" method="POST" enctype="multipart/form-data">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="file">Escolha um arquivo:</label>
+        <input type="file" id="file" name="file">
+
+        <button type="submit">Enviar</button>
+    </form>
+
+
+    <script>
+        document.getElementById("userForm").addEventListener("submit", async function (event) {
+            event.preventDefault(); // Evita o reload da página
+
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch("http://127.0.0.1:3001/users", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.json();
+                console.log("Resposta do servidor:", result);
+            } catch (error) {
+                console.error("Erro ao enviar:", error);
+            }
+        });
+    </script>
+</body>
+
+</html>
