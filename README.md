@@ -18,3 +18,7 @@
 - `sudo systemctl status mysql`
 - `sudo systemctl start mysql`
 - `sudo systemctl stop mysql`
+
+`npm install cors dotenv express mysql2`
+
+`npm install --save-dev nodemon`
